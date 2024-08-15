@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Permata Riverview & Permata Valley</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link ke CSS Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Link ke JavaScript Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Permata Riverview & Permata Valley</h1>
+    <div id="map"></div>
+
+    <script>
+        // Inisialisasi peta
+        var map = L.map('map').setView([1.127650, 103.997946], 13); // Pusat peta pada rata-rata lokasi
+
+        // Tambahkan layer peta dari OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Lokasi dan URL
+        var locations = [
+            { lat: 1.124226, lng: 104.000164, title: 'Permata Riverview', url: 'http://permatariverview.com/' },
+            { lat: 1.131075, lng: 103.995728, title: 'Permata Valley', url: 'http://www.permatavalley.com/' }
+        ];
+
+        // Tambahkan marker untuk setiap lokasi
+        locations.forEach(function(location) {
+            var marker = L.marker([location.lat, location.lng]).addTo(map)
+                .bindPopup('<b>' + location.title + '</b><br><a href="' + location.url + '" target="_blank">Buka Situs</a>');
+        });
+    </script>
+</body>
+</html>
