@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Peta Interaktif dengan Leaflet</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link ke CSS Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Link ke JavaScript Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        // Koordinat UC Berkeley dan Sport Basement
+        var lat1 = 37.870337;
+        var lng1 = -122.259493;
+        var lat2 = 37.860286;
+        var lng2 = -122.268318;
+
+        // Menghitung rata-rata koordinat
+        var averageLat = (lat1 + lat2) / 2;
+        var averageLng = (lng1 + lng2) / 2;
+
+        // Inisialisasi peta dengan titik pusat dan zoom yang disesuaikan
+        var map = L.map('map').setView([averageLat, averageLng], 13); // Zoom lebih dekat
+
+        // Tambahkan layer peta dari OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Lokasi dan URL
+        var locations = [
+            {lat: 37.870337, lng: -122.259493, url: 'https://www.berkeley.edu/', title: 'UC Berkeley'},
+            {lat: 37.860286, lng: -122.268318, url: 'http://www.sportsbasement.com/', title: 'Sport Basement'}
+        ];
+
+        // Tambahkan marker untuk setiap lokasi
+        locations.forEach(function(location) {
+            var marker = L.marker([location.lat, location.lng]).addTo(map)
+                .bindPopup('<b>' + location.title + '</b><br><a href="' + location.url + '" target="_blank">Buka Situs</a>');
+        });
+    </script>
+</body>
+</html>
